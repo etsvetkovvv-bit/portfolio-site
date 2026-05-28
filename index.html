@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Егор Цветков — обучение нейросетям и проекты на заказ</title>
+  <meta name="description" content="Индивидуальное обучение нейросетям за 2–5 дней и проекты на заказ. 10 уроков, личное сопровождение, довожу до результата." />
+
+  <!-- Open Graph (для красивой ссылки в Telegram / соцсетях). Можешь добавить свою картинку: <meta property="og:image" content="https://твой-домен/preview.jpg"> -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Егор Цветков — обучение нейросетям и проекты на заказ" />
+  <meta property="og:description" content="Индивидуальное обучение нейросетям за 2–5 дней и проекты на заказ. Довожу до результата." />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cpath%20d='M16%202C17%2011%2021%2015%2030%2016C21%2017%2017%2021%2016%2030C15%2021%2011%2017%202%2016C11%2015%2015%2011%2016%202Z'%20fill='%230071e3'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f5f5f7;
+      --text: #1d1d1f;
+      --text-2: #6e6e73;
+      --text-3: #86868b;
+      --accent: #0071e3;
+      --accent-2: #6e56cf;
+      --accent-3: #d6409f;
+      --border: rgba(0, 0, 0, 0.08);
+      --card: #ffffff;
+      --radius: 22px;
+      --radius-sm: 14px;
+      --max: 1080px;
+      --shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.10);
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    section { scroll-margin-top: 80px; }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3 { letter-spacing: -0.03em; line-height: 1.08; font-weight: 700; }
+
+    .grad {
+      background: linear-gradient(100deg, var(--accent), var(--accent-2) 48%, var(--accent-3));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-size: 17px;
+      font-weight: 600;
+      padding: 15px 30px;
+      border-radius: 980px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background 0.2s ease, opacity 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn svg { width: 19px; height: 19px; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-accent { background: var(--accent); color: #fff; box-shadow: 0 8px 24px rgba(0, 113, 227, 0.28); }
+    .btn-accent:hover { background: #0077ed; box-shadow: 0 12px 30px rgba(0, 113, 227, 0.34); }
+
+    .btn-dark { background: var(--text); color: #fff; }
+    .btn-dark:hover { background: #000; }
+
+    .btn-ghost { background: rgba(0, 0, 0, 0.05); color: var(--text); }
+    .btn-ghost:hover { background: rgba(0, 0, 0, 0.09); }
+
+    /* ---------- Header ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.72);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      gap: 16px;
+    }
+    .brand { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; }
+    .nav-links { display: flex; align-items: center; gap: 30px; }
+    .nav-links a { font-size: 15px; color: var(--text-2); font-weight: 500; transition: color 0.2s ease; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+
+    /* Language switcher */
+    .lang {
+      display: inline-flex;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 980px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .lang button {
+      font-family: inherit;
+      border: none;
+      background: transparent;
+      color: var(--text-2);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 6px 11px;
+      border-radius: 980px;
+      cursor: pointer;
+      transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .lang button.active { background: #fff; color: var(--text); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12); }
+    .lang button:hover:not(.active) { color: var(--text); }
+
+    .nav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 980px;
+      background: var(--accent);
+      color: #fff;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .nav-cta:hover { background: #0077ed; transform: translateY(-1px); }
+
+    /* ---------- Hero ---------- */
+    .hero { position: relative; padding: 92px 0 96px; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.55; will-change: transform; }
+    .blob-1 { width: 520px; height: 520px; background: radial-gradient(circle, #c7d2fe, transparent 68%); top: -160px; left: -120px; animation: drift1 20s ease-in-out infinite; }
+    .blob-2 { width: 460px; height: 460px; background: radial-gradient(circle, #fbcfe8, transparent 68%); top: -60px; right: -120px; animation: drift2 24s ease-in-out infinite; }
+    .blob-3 { width: 420px; height: 420px; background: radial-gradient(circle, #bae6fd, transparent 68%); bottom: -180px; left: 30%; animation: drift3 26s ease-in-out infinite; }
+
+    @keyframes drift1 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(60px, 40px) scale(1.12); } }
+    @keyframes drift2 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-50px, 50px) scale(1.08); } }
+    @keyframes drift3 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(40px, -50px) scale(1.15); } }
+
+    .hero .wrap { position: relative; z-index: 1; text-align: center; }
+    .hero h1 {
+      font-size: clamp(38px, 7.2vw, 78px);
+      font-weight: 800;
+      max-width: 920px;
+      margin: 0 auto 24px;
+    }
+    .hero-sub {
+      font-size: clamp(17px, 2.4vw, 22px);
+      color: var(--text-2);
+      max-width: 660px;
+      margin: 0 auto 40px;
+      font-weight: 400;
+      letter-spacing: -0.015em;
+    }
+    .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ---------- Marquee / brands ---------- */
+    .brands { padding: 40px 0 12px; }
+    .brands-label {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 26px;
+    }
+    .marquee {
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    }
+    .marquee-track {
+      display: flex;
+      align-items: center;
+      width: max-content;
+      animation: marquee 32s linear infinite;
+    }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    .marquee-item { font-size: clamp(22px, 3.4vw, 34px); font-weight: 700; color: #b0b0b8; padding: 0 28px; transition: color 0.3s ease; letter-spacing: -0.02em; }
+    .marquee-item:hover { color: var(--text); }
+    .marquee-dot { color: #d2d2d7; font-size: 18px; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ---------- Section base ---------- */
+    .sec { padding: 100px 0; }
+    .sec-alt { background: var(--bg-alt); }
+    .sec-head { text-align: center; max-width: 720px; margin: 0 auto 60px; }
+    .sec-head h2 { font-size: clamp(30px, 5vw, 52px); font-weight: 800; margin-bottom: 18px; }
+    .sec-head p { font-size: clamp(17px, 2.2vw, 21px); color: var(--text-2); font-weight: 400; }
+
+    /* ---------- About ---------- */
+    .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; }
+    .about-text h2 { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; margin-bottom: 24px; }
+    .about-text p { font-size: 18px; color: var(--text-2); margin-bottom: 18px; }
+    .about-text p strong { color: var(--text); font-weight: 600; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 30px 18px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .stat-num { font-size: clamp(34px, 5vw, 48px); font-weight: 800; letter-spacing: -0.04em; background: linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .stat-label { font-size: 14px; color: var(--text-2); margin-top: 6px; font-weight: 500; }
+
+    /* ---------- Cards ---------- */
+    .grid { display: grid; gap: 20px; }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      box-shadow: var(--shadow);
+      transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .card-icon {
+      width: 50px; height: 50px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(0,113,227,0.12), rgba(110,86,207,0.12));
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+    .card-icon svg { width: 26px; height: 26px; }
+    .card h3 { font-size: 21px; font-weight: 700; margin-bottom: 10px; }
+    .card p { font-size: 15.5px; color: var(--text-2); }
+    .card .tools { font-size: 15px; color: var(--accent); font-weight: 600; }
+
+    .blocks-title { text-align: center; font-size: clamp(24px, 3.4vw, 34px); font-weight: 800; margin: 80px 0 40px; }
+
+    /* ---------- Offer card ---------- */
+    .offer-wrap { max-width: 600px; margin: 70px auto 0; }
+    .offer {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 44px 40px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    .offer::before {
+      content: "";
+      position: absolute; top: 0; left: 0; right: 0; height: 5px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+    }
+    .offer-tag { display: inline-block; font-size: 13px; font-weight: 600; color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 16px; }
+    .price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+    .price { font-size: clamp(44px, 8vw, 60px); font-weight: 800; letter-spacing: -0.04em; }
+    .price-note { font-size: 16px; color: var(--text-3); }
+    .includes { list-style: none; margin: 28px 0; }
+    .includes li {
+      position: relative;
+      padding: 11px 0 11px 36px;
+      font-size: 16.5px;
+      border-top: 1px solid var(--border);
+    }
+    .includes li:first-child { border-top: none; }
+    .includes li::before {
+      content: "";
+      position: absolute; left: 2px; top: 50%; transform: translateY(-50%);
+      width: 22px; height: 22px;
+      background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230071e3' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+    }
+    .spots {
+      display: flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, rgba(214,64,159,0.08), rgba(110,86,207,0.08));
+      border: 1px solid rgba(110,86,207,0.18);
+      border-radius: 14px;
+      padding: 13px 18px;
+      font-size: 15.5px;
+      font-weight: 600;
+      margin-bottom: 26px;
+    }
+    .spots .pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--accent-3); box-shadow: 0 0 0 rgba(214,64,159,0.5); animation: pulse 2s infinite; flex: none; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(214,64,159,0.45); } 70% { box-shadow: 0 0 0 10px rgba(214,64,159,0); } 100% { box-shadow: 0 0 0 0 rgba(214,64,159,0); } }
+
+    .pay-title { font-size: 14px; color: var(--text-2); font-weight: 600; margin-bottom: 12px; }
+    .pay-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+    .chip { font-size: 13.5px; font-weight: 500; color: var(--text-2); background: var(--bg-alt); border: 1px solid var(--border); border-radius: 980px; padding: 8px 14px; }
+    .offer .btn { width: 100%; }
+    .reviews-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 22px; font-size: 15px; font-weight: 600; color: var(--accent); transition: gap 0.2s ease; width: 100%; justify-content: center; }
+    .reviews-link:hover { gap: 10px; }
+
+    /* ---------- Orders ---------- */
+    .orders-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+    .orders-inner p { font-size: clamp(17px, 2.3vw, 21px); color: var(--text-2); margin-bottom: 38px; }
+    .orders-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ---------- FAQ ---------- */
+    .faq-list { max-width: 760px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 26px 44px 26px 0;
+      font-size: 19px;
+      font-weight: 600;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary:hover { color: var(--accent); }
+    .faq-item summary::after {
+      content: "";
+      position: absolute; right: 4px; top: 50%;
+      width: 13px; height: 13px;
+      margin-top: -6px;
+      border-right: 2px solid var(--text-3);
+      border-bottom: 2px solid var(--text-3);
+      transform: rotate(45deg);
+      transition: transform 0.3s var(--ease);
+    }
+    .faq-item[open] summary::after { transform: rotate(-135deg); margin-top: -2px; }
+    .faq-answer { overflow: hidden; }
+    .faq-answer p { padding: 0 44px 28px 0; font-size: 17px; color: var(--text-2); }
+
+    /* ---------- Final CTA ---------- */
+    .final {
+      position: relative;
+      text-align: center;
+      padding: 110px 0;
+      overflow: hidden;
+      background: linear-gradient(160deg, #0a0a0c, #1d1d1f);
+      color: #fff;
+    }
+    .final .glow { position: absolute; width: 700px; height: 700px; border-radius: 50%; filter: blur(120px); opacity: 0.4; top: -260px; left: 50%; transform: translateX(-50%); background: radial-gradient(circle, #6e56cf, transparent 65%); pointer-events: none; }
+    .final h2 { position: relative; font-size: clamp(32px, 5.5vw, 56px); font-weight: 800; margin-bottom: 20px; }
+    .final p { position: relative; font-size: clamp(17px, 2.3vw, 21px); color: rgba(255,255,255,0.7); max-width: 560px; margin: 0 auto 40px; }
+    .final-cta { position: relative; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .final .btn-ghost { background: rgba(255,255,255,0.12); color: #fff; }
+    .final .btn-ghost:hover { background: rgba(255,255,255,0.2); }
+
+    /* ---------- Footer ---------- */
+    footer { padding: 56px 0 40px; background: var(--bg-alt); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+    .footer-brand .name { font-size: 20px; font-weight: 700; }
+    .footer-brand .tag { font-size: 15px; color: var(--text-2); margin-top: 4px; }
+    .socials { display: flex; gap: 12px; }
+    .social {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 11px 20px;
+      border-radius: 980px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      font-size: 15px; font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .social:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .social svg { width: 19px; height: 19px; }
+    .copyright { font-size: 13px; color: var(--text-3); margin-top: 36px; text-align: center; }
+
+    /* ---------- Reveal animations ---------- */
+    .js .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); transition-delay: var(--d, 0s); }
+    .js .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 760px) {
+      .nav-links { display: none; }
+      .sec { padding: 72px 0; }
+      .hero { padding: 64px 0 72px; }
+      .blocks-title { margin: 56px 0 32px; }
+      .offer { padding: 34px 24px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .wrap { padding: 0 18px; }
+      .grid-4, .grid-2 { grid-template-columns: 1fr; }
+      .btn { width: 100%; }
+      .hero-cta, .orders-cta, .final-cta { flex-direction: column; }
+      .lang button { padding: 6px 9px; }
+      .brand { font-size: 17px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .blob, .marquee-track, .spots .pulse { animation: none !important; }
+      .js .reveal { opacity: 1 !important; transform: none !important; }
+      .btn:hover, .card:hover, .social:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ============ HEADER ============ -->
+  <header id="header">
+    <div class="wrap">
+      <nav class="nav">
+        <a href="#top" class="brand" data-i18n="brand">Егор Цветков</a>
+        <div class="nav-links">
+          <a href="#about" data-i18n="nav.about">О себе</a>
+          <a href="#learn" data-i18n="nav.learn">Обучение</a>
+          <a href="#orders" data-i18n="nav.orders">Заказы</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        </div>
+        <div class="nav-right">
+          <div class="lang" role="group" aria-label="Language">
+            <button data-lang="ru">RU</button>
+            <button data-lang="en">EN</button>
+            <button data-lang="es">ES</button>
+          </div>
+          <a href="https://t.me/etsvetkovvv" target="_blank" rel="noopener" class="nav-cta" data-i18n="nav.cta">Написать</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <span id="top"></span>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+    <div class="wrap">
+      <span class="eyebrow reveal" data-i18n="hero.eyebrow">Нейросети с Егором Цветковым</span>
+      <h1 class="reveal" style="--d:0.08s" data-i18n="hero.title">Освой нейросети и работай <span class="grad">из любой точки мира</span></h1>
+      <p class="hero-sub reveal" style="--d:0.16s" data-i18n="hero.sub">Индивидуальное наставничество, а не очередной марафон. За 2–5 дней ты научишься создавать изображения, видео и тексты уровня моего профиля — или круче.</p>
+      <div class="hero-cta reveal" style="--d:0.24s">
+        <a href="#learn" class="btn btn-accent" data-i18n="hero.cta1">Начать обучение</a>
+        <a href="#orders" class="btn btn-ghost" data-i18n="hero.cta2">Заказать работу</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BRANDS ============ -->
+  <section class="brands">
+    <div class="wrap">
+      <p class="brands-label reveal" data-i18n="brands.label">Мне доверяют</p>
+    </div>
+    <div class="marquee reveal">
+      <div class="marquee-track" id="marquee"></div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="sec" id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-text">
+          <span class="eyebrow reveal" data-i18n="about.tag">Обо мне</span>
+          <h2 class="reveal" style="--d:0.05s" data-i18n="about.title">От завода на Севере — к работе из любой точки мира</h2>
+          <p class="reveal" style="--d:0.1s" data-i18n="about.p1">4 года назад я работал на заводе на Севере. Сегодня я зарабатываю на нейросетях и работаю откуда угодно — и хочу помочь тебе прийти к тому же.</p>
+          <p class="reveal" style="--d:0.15s" data-i18n="about.p2">Больше 3 лет я создаю проекты на нейросетях для блогеров и крупных компаний. Теперь я делюсь этим опытом один на один с каждым учеником.</p>
+        </div>
+        <div class="stats">
+          <div class="stat reveal" style="--d:0.1s"><div class="stat-num">3+</div><div class="stat-label" data-i18n="about.stat1">года в нейросетях</div></div>
+          <div class="stat reveal" style="--d:0.18s"><div class="stat-num">15</div><div class="stat-label" data-i18n="about.stat2">мест в месяц</div></div>
+          <div class="stat reveal" style="--d:0.26s"><div class="stat-num">2–5</div><div class="stat-label" data-i18n="about.stat3">дней до результата</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LEARN ============ -->
+  <section class="sec sec-alt" id="learn">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow reveal" data-i18n="learn.tag">Обучение</span>
+        <h2 class="reveal" style="--d:0.05s" data-i18n="learn.title">Индивидуальное обучение нейросетям</h2>
+        <p class="reveal" style="--d:0.1s" data-i18n="learn.sub">Это не марафон и не поток. Только индивидуальное наставничество: 10 подробных интерактивных уроков и моё личное сопровождение на каждом шаге.</p>
+      </div>
+
+      <div class="grid grid-4">
+        <div class="card reveal" style="--d:0.05s">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <h3 data-i18n="learn.v1t">10 уроков</h3>
+          <p data-i18n="learn.v1d">Подробные, понятные и интерактивные уроки по всем направлениям.</p>
+        </div>
+        <div class="card reveal" style="--d:0.12s">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+          <h3 data-i18n="learn.v2t">Личное общение</h3>
+          <p data-i18n="learn.v2d">Пиши в любой момент. Я всегда помогу и подскажу, как сделать именно в твоей задаче.</p>
+        </div>
+        <div class="card reveal" style="--d:0.19s">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg></div>
+          <h3 data-i18n="learn.v3t">2–5 дней</h3>
+          <p data-i18n="learn.v3d">За это время ты выходишь на уровень работ из моего профиля — или выше.</p>
+        </div>
+        <div class="card reveal" style="--d:0.26s">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 2l2.4 1.8 3 .3 1 2.8 2.4 1.8-1 2.8 1 2.8-2.4 1.8-1 2.8-3 .3L12 22l-2.4-1.8-3-.3-1-2.8L3.2 15.3l1-2.8-1-2.8 2.4-1.8 1-2.8 3-.3z"/></svg></div>
+          <h3 data-i18n="learn.v4t">Довожу до результата</h3>
+          <p data-i18n="learn.v4d">Не ради галочки. Работаю с тобой, пока у тебя не начнёт получаться.</p>
+        </div>
+      </div>
+
+      <h3 class="blocks-title reveal" data-i18n="learn.blocksTitle">Что ты освоишь</h3>
+      <div class="grid grid-2">
+        <div class="card reveal" style="--d:0.05s">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5h16v2"/><path d="M9 20h6"/><path d="M12 5v15"/></svg></div>
+          <h3 data-i18n="learn.b1t">Текстовые нейросети</h3>
+          <p class="tools">ChatGPT · Claude · Gemini · Grok</p>
+        </div>
+        <div class="card reveal" style="--d:0.12s">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <h3 data-i18n="learn.b2t">Генерация изображений</h3>
+          <p class="tools">GPT Image 2 · Nano Banana 2 · MidJourney</p>
+        </div>
+        <div class="card reveal" style="--d:0.19s">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polygon points="10 9 15 12 10 15 10 9" fill="currentColor" stroke="none"/></svg></div>
+          <h3 data-i18n="learn.b3t">Анимация и видео</h3>
+          <p class="tools">Kling · Sora · Grok Imagine · Seedance</p>
+        </div>
+        <div class="card reveal" style="--d:0.26s">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 6l-9.5 9.5-5-5L1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+          <h3 data-i18n="learn.b4t">Заработок на нейросетях</h3>
+          <p data-i18n="learn.b4d">Как брать заказы и превращать навык в стабильный доход.</p>
+        </div>
+      </div>
+
+      <div class="offer-wrap reveal">
+        <div class="offer">
+          <span class="offer-tag" data-i18n="learn.offerTag">Индивидуальное наставничество</span>
+          <div class="price-row">
+            <span class="price" data-i18n="learn.price">10 000 ₽</span>
+            <span class="price-note" data-i18n="learn.priceNote">разовая оплата</span>
+          </div>
+          <ul class="includes">
+            <li data-i18n="learn.inc1">10 подробных интерактивных уроков</li>
+            <li data-i18n="learn.inc2">Личное сопровождение в Telegram</li>
+            <li data-i18n="learn.inc3">Текст, изображения, анимация и видео</li>
+            <li data-i18n="learn.inc4">Отдельный блок по заработку</li>
+            <li data-i18n="learn.inc5">Помощь, пока не дойдёшь до результата</li>
+          </ul>
+          <div class="spots"><span class="pulse"></span><span data-i18n="learn.spots">Беру только 15 учеников в месяц</span></div>
+          <p class="pay-title" data-i18n="learn.payTitle">Оплата любым удобным способом</p>
+          <div class="pay-chips">
+            <span class="chip" data-i18n="learn.pay1">Российская карта</span>
+            <span class="chip" data-i18n="learn.pay2">Visa / MasterCard</span>
+            <span class="chip" data-i18n="learn.pay3">Криптовалюта</span>
+            <span class="chip" data-i18n="learn.pay4">Telegram Wallet</span>
+          </div>
+          <a href="https://t.me/etsvetkovvv" target="_blank" rel="noopener" class="btn btn-accent">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.3 18.6 20.04c-.25 1.1-.9 1.38-1.83.86l-5.05-3.72-2.43 2.34c-.27.27-.5.5-1 .5l.36-5.13 9.3-8.4c.4-.36-.09-.56-.62-.2L5.18 13.55l-4.96-1.55c-1.08-.34-1.1-1.08.23-1.6L20.55 2.8c.9-.33 1.68.2 1.39 1.5z"/></svg>
+            <span data-i18n="learn.cta">Записаться в Telegram</span>
+          </a>
+          <a href="https://www.instagram.com/tsvetkovvv.ai/" target="_blank" rel="noopener" class="reviews-link" data-i18n="learn.reviews">Реальные отзывы учеников — в актуальном «Отзывы» в моём Instagram →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ORDERS ============ -->
+  <section class="sec" id="orders">
+    <div class="wrap">
+      <div class="orders-inner">
+        <span class="eyebrow reveal" data-i18n="orders.tag">Заказы</span>
+        <h2 class="reveal" style="--d:0.05s" data-i18n="orders.title">Проекты на заказ — под ключ</h2>
+        <p class="reveal" style="--d:0.1s" data-i18n="orders.p">Выполняю заказы любой сложности и в любом стиле. Работал с блогерами и компаниями: Winline, Амкал, Герман Попков, SQWOZ BAB и другими. Стоимость и сроки обсуждаем индивидуально — просто напиши, что нужно.</p>
+        <div class="orders-cta reveal" style="--d:0.16s">
+          <a href="https://t.me/etsvetkovvv" target="_blank" rel="noopener" class="btn btn-accent">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.3 18.6 20.04c-.25 1.1-.9 1.38-1.83.86l-5.05-3.72-2.43 2.34c-.27.27-.5.5-1 .5l.36-5.13 9.3-8.4c.4-.36-.09-.56-.62-.2L5.18 13.55l-4.96-1.55c-1.08-.34-1.1-1.08.23-1.6L20.55 2.8c.9-.33 1.68.2 1.39 1.5z"/></svg>
+            <span data-i18n="orders.cta1">Обсудить заказ в Telegram</span>
+          </a>
+          <a href="https://www.instagram.com/tsvetkovvv.ai/" target="_blank" rel="noopener" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+            <span data-i18n="orders.cta2">Смотреть работы в Instagram</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="sec sec-alt" id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow reveal" data-i18n="faq.tag">FAQ</span>
+        <h2 class="reveal" style="--d:0.05s" data-i18n="faq.title">Частые вопросы</h2>
+      </div>
+      <div class="faq-list reveal">
+        <details class="faq-item"><summary data-i18n="faq.q1">Подходит ли обучение новичкам?</summary><div class="faq-answer"><p data-i18n="faq.a1">Да. Мы начинаем с нуля и идём по понятным шагам. Опыт и технические знания не нужны — нужно только желание.</p></div></details>
+        <details class="faq-item"><summary data-i18n="faq.q2">Нужен ли мощный компьютер?</summary><div class="faq-answer"><p data-i18n="faq.a2">Нет. Большинство нейросетей работают онлайн, в браузере. Для старта достаточно обычного ноутбука или даже телефона.</p></div></details>
+        <details class="faq-item"><summary data-i18n="faq.q3">Сколько длится обучение?</summary><div class="faq-answer"><p data-i18n="faq.a3">Основную программу большинство проходит за 2–5 дней. Но жёстких сроков нет: ты учишься в комфортном темпе, а я остаюсь на связи и после.</p></div></details>
+        <details class="faq-item"><summary data-i18n="faq.q4">Что если у меня не получится?</summary><div class="faq-answer"><p data-i18n="faq.a4">Я довожу до результата. Это индивидуальное наставничество — ты можешь писать мне в любой момент, и я помогу разобраться именно с твоей задачей.</p></div></details>
+        <details class="faq-item"><summary data-i18n="faq.q5">Как проходит обучение?</summary><div class="faq-answer"><p data-i18n="faq.a5">Ты оплачиваешь курс и получаешь 10 уроков по всем направлениям. Дальше мы общаемся один на один в Telegram — я сопровождаю тебя на каждом шаге.</p></div></details>
+        <details class="faq-item"><summary data-i18n="faq.q6">Сколько стоит и как оплатить?</summary><div class="faq-answer"><p data-i18n="faq.a6">10 000 ₽. Оплатить можно любым удобным способом: российской картой, картой Visa/MasterCard, криптовалютой или через Telegram Wallet. Просто напиши мне в Telegram.</p></div></details>
+        <details class="faq-item"><summary data-i18n="faq.q7">Реально ли зарабатывать на нейросетях?</summary><div class="faq-answer"><p data-i18n="faq.a7">Да. Отдельный блок обучения посвящён заработку: как брать заказы и превращать навык в доход. Я сам делаю проекты на заказ и делюсь рабочими схемами.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section class="final">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 class="reveal" data-i18n="cta.title">Готов начать?</h2>
+      <p class="reveal" style="--d:0.08s" data-i18n="cta.sub">Напиши мне в Telegram — расскажу детали, отвечу на вопросы и помогу выбрать, с чего начать.</p>
+      <div class="final-cta reveal" style="--d:0.16s">
+        <a href="https://t.me/etsvetkovvv" target="_blank" rel="noopener" class="btn btn-accent">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.3 18.6 20.04c-.25 1.1-.9 1.38-1.83.86l-5.05-3.72-2.43 2.34c-.27.27-.5.5-1 .5l.36-5.13 9.3-8.4c.4-.36-.09-.56-.62-.2L5.18 13.55l-4.96-1.55c-1.08-.34-1.1-1.08.23-1.6L20.55 2.8c.9-.33 1.68.2 1.39 1.5z"/></svg>
+          <span data-i18n="cta.learn">Хочу обучение</span>
+        </a>
+        <a href="https://t.me/etsvetkovvv" target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="cta.order">Хочу заказать работу</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="name" data-i18n="brand">Егор Цветков</div>
+          <div class="tag" data-i18n="footer.tag">Нейросети: обучение и проекты на заказ</div>
+        </div>
+        <div class="socials">
+          <a href="https://www.instagram.com/tsvetkovvv.ai/" target="_blank" rel="noopener" class="social">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+            Instagram
+          </a>
+          <a href="https://t.me/etsvetkovvv" target="_blank" rel="noopener" class="social">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.3 18.6 20.04c-.25 1.1-.9 1.38-1.83.86l-5.05-3.72-2.43 2.34c-.27.27-.5.5-1 .5l.36-5.13 9.3-8.4c.4-.36-.09-.56-.62-.2L5.18 13.55l-4.96-1.55c-1.08-.34-1.1-1.08.23-1.6L20.55 2.8c.9-.33 1.68.2 1.39 1.5z"/></svg>
+            Telegram
+          </a>
+        </div>
+      </div>
+      <div class="copyright" data-i18n="footer.rights">© 2026 Егор Цветков</div>
+    </div>
+  </footer>
+
+  <script>
+    document.documentElement.classList.add("js");
+
+    /* ---------- Translations ---------- */
+    var I18N = {
+      ru: {
+        "brand": "Егор Цветков",
+        "nav.about": "О себе", "nav.learn": "Обучение", "nav.orders": "Заказы", "nav.faq": "FAQ", "nav.cta": "Написать",
+        "hero.eyebrow": "Нейросети с Егором Цветковым",
+        "hero.title": "Освой нейросети и работай <span class='grad'>из любой точки мира</span>",
+        "hero.sub": "Индивидуальное наставничество, а не очередной марафон. За 2–5 дней ты научишься создавать изображения, видео и тексты уровня моего профиля — или круче.",
+        "hero.cta1": "Начать обучение", "hero.cta2": "Заказать работу",
+        "brands.label": "Мне доверяют",
+        "about.tag": "Обо мне",
+        "about.title": "От завода на Севере — к работе из любой точки мира",
+        "about.p1": "4 года назад я работал на заводе на Севере. Сегодня я зарабатываю на нейросетях и работаю откуда угодно — и хочу помочь тебе прийти к тому же.",
+        "about.p2": "Больше 3 лет я создаю проекты на нейросетях для блогеров и крупных компаний. Теперь я делюсь этим опытом один на один с каждым учеником.",
+        "about.stat1": "года в нейросетях", "about.stat2": "мест в месяц", "about.stat3": "дней до результата",
+        "learn.tag": "Обучение",
+        "learn.title": "Индивидуальное обучение нейросетям",
+        "learn.sub": "Это не марафон и не поток. Только индивидуальное наставничество: 10 подробных интерактивных уроков и моё личное сопровождение на каждом шаге.",
+        "learn.v1t": "10 уроков", "learn.v1d": "Подробные, понятные и интерактивные уроки по всем направлениям.",
+        "learn.v2t": "Личное общение", "learn.v2d": "Пиши в любой момент. Я всегда помогу и подскажу, как сделать именно в твоей задаче.",
+        "learn.v3t": "2–5 дней", "learn.v3d": "За это время ты выходишь на уровень работ из моего профиля — или выше.",
+        "learn.v4t": "Довожу до результата", "learn.v4d": "Не ради галочки. Работаю с тобой, пока у тебя не начнёт получаться.",
+        "learn.blocksTitle": "Что ты освоишь",
+        "learn.b1t": "Текстовые нейросети",
+        "learn.b2t": "Генерация изображений",
+        "learn.b3t": "Анимация и видео",
+        "learn.b4t": "Заработок на нейросетях", "learn.b4d": "Как брать заказы и превращать навык в стабильный доход.",
+        "learn.offerTag": "Индивидуальное наставничество",
+        "learn.price": "10 000 ₽", "learn.priceNote": "разовая оплата",
+        "learn.inc1": "10 подробных интерактивных уроков",
+        "learn.inc2": "Личное сопровождение в Telegram",
+        "learn.inc3": "Текст, изображения, анимация и видео",
+        "learn.inc4": "Отдельный блок по заработку",
+        "learn.inc5": "Помощь, пока не дойдёшь до результата",
+        "learn.spots": "Беру только 15 учеников в месяц",
+        "learn.payTitle": "Оплата любым удобным способом",
+        "learn.pay1": "Российская карта", "learn.pay2": "Visa / MasterCard", "learn.pay3": "Криптовалюта", "learn.pay4": "Telegram Wallet",
+        "learn.cta": "Записаться в Telegram",
+        "learn.reviews": "Реальные отзывы учеников — в актуальном «Отзывы» в моём Instagram →",
+        "orders.tag": "Заказы",
+        "orders.title": "Проекты на заказ — под ключ",
+        "orders.p": "Выполняю заказы любой сложности и в любом стиле. Работал с блогерами и компаниями: Winline, Амкал, Герман Попков, SQWOZ BAB и другими. Стоимость и сроки обсуждаем индивидуально — просто напиши, что нужно.",
+        "orders.cta1": "Обсудить заказ в Telegram", "orders.cta2": "Смотреть работы в Instagram",
+        "faq.tag": "FAQ", "faq.title": "Частые вопросы",
+        "faq.q1": "Подходит ли обучение новичкам?",
+        "faq.a1": "Да. Мы начинаем с нуля и идём по понятным шагам. Опыт и технические знания не нужны — нужно только желание.",
+        "faq.q2": "Нужен ли мощный компьютер?",
+        "faq.a2": "Нет. Большинство нейросетей работают онлайн, в браузере. Для старта достаточно обычного ноутбука или даже телефона.",
+        "faq.q3": "Сколько длится обучение?",
+        "faq.a3": "Основную программу большинство проходит за 2–5 дней. Но жёстких сроков нет: ты учишься в комфортном темпе, а я остаюсь на связи и после.",
+        "faq.q4": "Что если у меня не получится?",
+        "faq.a4": "Я довожу до результата. Это индивидуальное наставничество — ты можешь писать мне в любой момент, и я помогу разобраться именно с твоей задачей.",
+        "faq.q5": "Как проходит обучение?",
+        "faq.a5": "Ты оплачиваешь курс и получаешь 10 уроков по всем направлениям. Дальше мы общаемся один на один в Telegram — я сопровождаю тебя на каждом шаге.",
+        "faq.q6": "Сколько стоит и как оплатить?",
+        "faq.a6": "10 000 ₽. Оплатить можно любым удобным способом: российской картой, картой Visa/MasterCard, криптовалютой или через Telegram Wallet. Просто напиши мне в Telegram.",
+        "faq.q7": "Реально ли зарабатывать на нейросетях?",
+        "faq.a7": "Да. Отдельный блок обучения посвящён заработку: как брать заказы и превращать навык в доход. Я сам делаю проекты на заказ и делюсь рабочими схемами.",
+        "cta.title": "Готов начать?",
+        "cta.sub": "Напиши мне в Telegram — расскажу детали, отвечу на вопросы и помогу выбрать, с чего начать.",
+        "cta.learn": "Хочу обучение", "cta.order": "Хочу заказать работу",
+        "footer.tag": "Нейросети: обучение и проекты на заказ",
+        "footer.rights": "© 2026 Егор Цветков",
+        "meta.title": "Егор Цветков — обучение нейросетям и проекты на заказ",
+        "meta.desc": "Индивидуальное обучение нейросетям за 2–5 дней и проекты на заказ. 10 уроков, личное сопровождение, довожу до результата."
+      },
+      en: {
+        "brand": "Egor Tsvetkov",
+        "nav.about": "About", "nav.learn": "Training", "nav.orders": "Orders", "nav.faq": "FAQ", "nav.cta": "Contact",
+        "hero.eyebrow": "Neural networks with Egor Tsvetkov",
+        "hero.title": "Master AI and work <span class='grad'>from anywhere in the world</span>",
+        "hero.sub": "Individual mentorship, not another mass course. In 2–5 days you’ll learn to create images, videos and texts at the level of my profile — or better.",
+        "hero.cta1": "Start learning", "hero.cta2": "Order a project",
+        "brands.label": "Trusted by",
+        "about.tag": "About me",
+        "about.title": "From a factory in the North to working anywhere",
+        "about.p1": "Four years ago I worked at a factory in the North of Russia. Today I make a living with AI and work from anywhere — and I want to help you get there too.",
+        "about.p2": "For over 3 years I’ve been creating AI projects for bloggers and major brands. Now I share that experience one-on-one with every student.",
+        "about.stat1": "years in AI", "about.stat2": "spots per month", "about.stat3": "days to results",
+        "learn.tag": "Training",
+        "learn.title": "Individual AI mentorship",
+        "learn.sub": "Not a marathon, not a mass stream. Pure individual mentorship: 10 detailed, interactive lessons and my personal support at every step.",
+        "learn.v1t": "10 lessons", "learn.v1d": "Detailed, clear and interactive lessons across every area.",
+        "learn.v2t": "Personal support", "learn.v2d": "Message me anytime. I’ll always help and show you exactly what to do for your task.",
+        "learn.v3t": "2–5 days", "learn.v3d": "That’s enough to reach the level of the work in my profile — or beyond.",
+        "learn.v4t": "Results, guaranteed", "learn.v4d": "No box-ticking. I work with you until it truly clicks.",
+        "learn.blocksTitle": "What you’ll master",
+        "learn.b1t": "Text AI",
+        "learn.b2t": "Image generation",
+        "learn.b3t": "Animation & video",
+        "learn.b4t": "Making money with AI", "learn.b4d": "How to win clients and turn the skill into steady income.",
+        "learn.offerTag": "Individual mentorship",
+        "learn.price": "€100", "learn.priceNote": "one-time payment",
+        "learn.inc1": "10 detailed interactive lessons",
+        "learn.inc2": "Personal support in Telegram",
+        "learn.inc3": "Text, images, animation and video",
+        "learn.inc4": "A dedicated module on earning",
+        "learn.inc5": "Help until you reach the result",
+        "learn.spots": "Only 15 students per month",
+        "learn.payTitle": "Pay any way that suits you",
+        "learn.pay1": "Russian card", "learn.pay2": "Visa / MasterCard", "learn.pay3": "Cryptocurrency", "learn.pay4": "Telegram Wallet",
+        "learn.cta": "Enroll via Telegram",
+        "learn.reviews": "Real student reviews are in the “Reviews” highlights on my Instagram →",
+        "orders.tag": "Orders",
+        "orders.title": "Custom projects, done for you",
+        "orders.p": "I take on projects of any complexity and any style. I’ve worked with bloggers and brands: Winline, Amkal, German Popkov, SQWOZ BAB and more. Price and timing are discussed individually — just tell me what you need.",
+        "orders.cta1": "Discuss your project on Telegram", "orders.cta2": "See my work on Instagram",
+        "faq.tag": "FAQ", "faq.title": "Frequently asked questions",
+        "faq.q1": "Is this suitable for beginners?",
+        "faq.a1": "Yes. We start from scratch with clear, step-by-step lessons. No experience or technical background required — just the desire to learn.",
+        "faq.q2": "Do I need a powerful computer?",
+        "faq.a2": "No. Most neural networks run online in your browser. A regular laptop or even a phone is enough to start.",
+        "faq.q3": "How long does it take?",
+        "faq.a3": "Most people complete the core program in 2–5 days. But there are no strict deadlines — you learn at your own pace, and I stay in touch afterwards too.",
+        "faq.q4": "What if I can’t do it?",
+        "faq.a4": "I take you all the way to the result. This is individual mentorship — you can message me anytime and I’ll help you solve your specific task.",
+        "faq.q5": "How does the training work?",
+        "faq.a5": "You pay for the course and get 10 lessons covering every area. Then we work one-on-one in Telegram — I guide you through every step.",
+        "faq.q6": "How much is it and how do I pay?",
+        "faq.a6": "It’s €100. You can pay any way that’s convenient: Russian card, Visa/MasterCard, cryptocurrency or Telegram Wallet. Just message me on Telegram.",
+        "faq.q7": "Can you really earn with AI?",
+        "faq.a7": "Yes. A dedicated part of the course is about making money: how to take on clients and turn the skill into income. I do custom projects myself and share what actually works.",
+        "cta.title": "Ready to start?",
+        "cta.sub": "Message me on Telegram — I’ll share the details, answer your questions and help you choose where to start.",
+        "cta.learn": "I want the training", "cta.order": "I want a custom project",
+        "footer.tag": "AI: mentorship and custom projects",
+        "footer.rights": "© 2026 Egor Tsvetkov",
+        "meta.title": "Egor Tsvetkov — AI mentorship and custom projects",
+        "meta.desc": "Individual AI mentorship in 2–5 days and custom projects. 10 lessons, personal support, results guaranteed."
+      },
+      es: {
+        "brand": "Egor Tsvetkov",
+        "nav.about": "Sobre mí", "nav.learn": "Formación", "nav.orders": "Encargos", "nav.faq": "FAQ", "nav.cta": "Escríbeme",
+        "hero.eyebrow": "Redes neuronales con Egor Tsvetkov",
+        "hero.title": "Domina la IA y trabaja <span class='grad'>desde cualquier lugar del mundo</span>",
+        "hero.sub": "Mentoría individual, no otro curso masivo. En 2–5 días aprenderás a crear imágenes, vídeos y textos al nivel de mi perfil — o mejor.",
+        "hero.cta1": "Empezar a aprender", "hero.cta2": "Encargar un proyecto",
+        "brands.label": "Confían en mí",
+        "about.tag": "Sobre mí",
+        "about.title": "De una fábrica en el Norte a trabajar desde cualquier lugar",
+        "about.p1": "Hace cuatro años trabajaba en una fábrica en el Norte de Rusia. Hoy vivo de la IA y trabajo desde donde quiera — y quiero ayudarte a lograr lo mismo.",
+        "about.p2": "Llevo más de 3 años creando proyectos con IA para blogueros y grandes marcas. Ahora comparto esa experiencia uno a uno con cada alumno.",
+        "about.stat1": "años con IA", "about.stat2": "plazas al mes", "about.stat3": "días para resultados",
+        "learn.tag": "Formación",
+        "learn.title": "Mentoría individual de IA",
+        "learn.sub": "No es un maratón ni un curso masivo. Pura mentoría individual: 10 lecciones detalladas e interactivas y mi acompañamiento personal en cada paso.",
+        "learn.v1t": "10 lecciones", "learn.v1d": "Lecciones detalladas, claras e interactivas de todas las áreas.",
+        "learn.v2t": "Acompañamiento personal", "learn.v2d": "Escríbeme cuando quieras. Siempre te ayudo y te muestro qué hacer en tu caso concreto.",
+        "learn.v3t": "2–5 días", "learn.v3d": "Es suficiente para alcanzar el nivel de los trabajos de mi perfil — o más.",
+        "learn.v4t": "Hasta el resultado", "learn.v4d": "Sin medias tintas. Trabajo contigo hasta que de verdad te salga.",
+        "learn.blocksTitle": "Lo que vas a dominar",
+        "learn.b1t": "IA de texto",
+        "learn.b2t": "Generación de imágenes",
+        "learn.b3t": "Animación y vídeo",
+        "learn.b4t": "Ganar dinero con IA", "learn.b4d": "Cómo conseguir clientes y convertir la habilidad en ingresos estables.",
+        "learn.offerTag": "Mentoría individual",
+        "learn.price": "€100", "learn.priceNote": "pago único",
+        "learn.inc1": "10 lecciones detalladas e interactivas",
+        "learn.inc2": "Acompañamiento personal en Telegram",
+        "learn.inc3": "Texto, imágenes, animación y vídeo",
+        "learn.inc4": "Un módulo dedicado a ganar dinero",
+        "learn.inc5": "Ayuda hasta lograr el resultado",
+        "learn.spots": "Solo 15 alumnos al mes",
+        "learn.payTitle": "Paga como prefieras",
+        "learn.pay1": "Tarjeta rusa", "learn.pay2": "Visa / MasterCard", "learn.pay3": "Criptomonedas", "learn.pay4": "Telegram Wallet",
+        "learn.cta": "Inscribirme por Telegram",
+        "learn.reviews": "Opiniones reales de alumnos en los destacados «Opiniones» de mi Instagram →",
+        "orders.tag": "Encargos",
+        "orders.title": "Proyectos a medida, llave en mano",
+        "orders.p": "Realizo encargos de cualquier complejidad y estilo. He trabajado con blogueros y marcas: Winline, Amkal, German Popkov, SQWOZ BAB y más. El precio y los plazos se acuerdan de forma individual — solo dime qué necesitas.",
+        "orders.cta1": "Hablar de tu encargo por Telegram", "orders.cta2": "Ver mis trabajos en Instagram",
+        "faq.tag": "FAQ", "faq.title": "Preguntas frecuentes",
+        "faq.q1": "¿Es apto para principiantes?",
+        "faq.a1": "Sí. Empezamos desde cero con lecciones claras paso a paso. No necesitas experiencia ni conocimientos técnicos, solo ganas de aprender.",
+        "faq.q2": "¿Necesito un ordenador potente?",
+        "faq.a2": "No. La mayoría de las redes neuronales funcionan online, en el navegador. Para empezar basta con un portátil normal o incluso un móvil.",
+        "faq.q3": "¿Cuánto dura la formación?",
+        "faq.a3": "La mayoría completa el programa principal en 2–5 días. Pero no hay plazos estrictos: aprendes a tu ritmo y sigo en contacto después.",
+        "faq.q4": "¿Y si no me sale?",
+        "faq.a4": "Te acompaño hasta el resultado. Es una mentoría individual: puedes escribirme en cualquier momento y te ayudo con tu caso concreto.",
+        "faq.q5": "¿Cómo es la formación?",
+        "faq.a5": "Pagas el curso y recibes 10 lecciones de todas las áreas. Luego trabajamos uno a uno en Telegram: te acompaño en cada paso.",
+        "faq.q6": "¿Cuánto cuesta y cómo se paga?",
+        "faq.a6": "Son €100. Puedes pagar como te resulte más cómodo: tarjeta rusa, Visa/MasterCard, criptomonedas o Telegram Wallet. Solo escríbeme por Telegram.",
+        "faq.q7": "¿De verdad se puede ganar dinero con la IA?",
+        "faq.a7": "Sí. Una parte del curso está dedicada a ganar dinero: cómo conseguir encargos y convertir la habilidad en ingresos. Yo mismo hago proyectos a medida y comparto lo que funciona.",
+        "cta.title": "¿Listo para empezar?",
+        "cta.sub": "Escríbeme por Telegram — te cuento los detalles, respondo tus dudas y te ayudo a decidir por dónde empezar.",
+        "cta.learn": "Quiero la formación", "cta.order": "Quiero un proyecto a medida",
+        "footer.tag": "IA: mentoría y proyectos a medida",
+        "footer.rights": "© 2026 Egor Tsvetkov",
+        "meta.title": "Egor Tsvetkov — formación en IA y proyectos a medida",
+        "meta.desc": "Formación individual en IA en 2–5 días y proyectos a medida. 10 lecciones, acompañamiento personal y resultados."
+      }
+    };
+
+    var BRANDS = {
+      ru: ["Winline", "Амкал", "Герман Попков", "SQWOZ BAB", "и другие"],
+      en: ["Winline", "Amkal", "German Popkov", "SQWOZ BAB", "and more"],
+      es: ["Winline", "Amkal", "German Popkov", "SQWOZ BAB", "y más"]
+    };
+
+    function buildMarquee(lang) {
+      var items = BRANDS[lang] || BRANDS.ru;
+      var one = "";
+      for (var r = 0; r < 3; r++) {
+        for (var i = 0; i < items.length; i++) {
+          one += '<span class="marquee-item">' + items[i] + '</span><span class="marquee-dot">•</span>';
+        }
+      }
+      document.getElementById("marquee").innerHTML = one + one;
+    }
+
+    function setLang(lang) {
+      if (!I18N[lang]) lang = "ru";
+      var dict = I18N[lang];
+      document.documentElement.lang = lang;
+
+      var nodes = document.querySelectorAll("[data-i18n]");
+      for (var i = 0; i < nodes.length; i++) {
+        var key = nodes[i].getAttribute("data-i18n");
+        if (dict[key] != null) nodes[i].innerHTML = dict[key];
+      }
+
+      document.title = dict["meta.title"];
+      var md = document.querySelector('meta[name="description"]');
+      if (md) md.setAttribute("content", dict["meta.desc"]);
+      var ogt = document.querySelector('meta[property="og:title"]');
+      if (ogt) ogt.setAttribute("content", dict["meta.title"]);
+      var ogd = document.querySelector('meta[property="og:description"]');
+      if (ogd) ogd.setAttribute("content", dict["meta.desc"]);
+
+      buildMarquee(lang);
+
+      var btns = document.querySelectorAll(".lang button");
+      for (var b = 0; b < btns.length; b++) {
+        btns[b].classList.toggle("active", btns[b].getAttribute("data-lang") === lang);
+      }
+
+      try { localStorage.setItem("tsv-lang", lang); } catch (e) {}
+    }
+
+    /* language switcher clicks */
+    var langButtons = document.querySelectorAll(".lang button");
+    for (var k = 0; k < langButtons.length; k++) {
+      langButtons[k].addEventListener("click", function () {
+        setLang(this.getAttribute("data-lang"));
+      });
+    }
+
+    /* initial language: saved -> browser -> ru */
+    var saved = null;
+    try { saved = localStorage.getItem("tsv-lang"); } catch (e) {}
+    var browser = (navigator.language || "ru").slice(0, 2).toLowerCase();
+    var initial = saved || (["ru", "en", "es"].indexOf(browser) > -1 ? browser : "ru");
+    setLang(initial);
+
+    /* ---------- Header scrolled state ---------- */
+    var header = document.getElementById("header");
+    function onScroll() {
+      if (window.scrollY > 10) header.classList.add("scrolled");
+      else header.classList.remove("scrolled");
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    /* ---------- Reveal on scroll ---------- */
+    var reveals = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+      reveals.forEach(function (el) { io.observe(el); });
+    } else {
+      reveals.forEach(function (el) { el.classList.add("is-visible"); });
+    }
+  </script>
+</body>
+</html>
